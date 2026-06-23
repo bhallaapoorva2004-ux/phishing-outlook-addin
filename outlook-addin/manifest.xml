@@ -6,26 +6,19 @@
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
   xsi:type="MailApp">
 
-  <!-- ============================================================
-       BEFORE USING THIS FILE:
-       Replace every occurrence of YOUR_GITHUB_USERNAME and
-       YOUR_REPO_NAME below with where you host these files
-       (see the setup guide). Example final URL:
-       https://janedoe.github.io/phishing-outlook-addin/taskpane.html
-       ============================================================ -->
-
   <Id>10c32575-6069-4320-bac6-afb73864c3d9</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>Phishing Detection System</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Phishing URL Checker"/>
   <Description DefaultValue="Scans the links in the open email against your Phishing Detection System ML model and flags risky URLs."/>
-  <IconUrl DefaultValue="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/icons/icon32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/icons/icon80.png"/>
-  <SupportUrl DefaultValue="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/"/>
+
+  <IconUrl DefaultValue="https://bhallaapoorva2004-ux.github.io/phishing-outlook-addin/icons/icon32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://bhallaapoorva2004-ux.github.io/phishing-outlook-addin/icons/icon80.png"/>
+  <SupportUrl DefaultValue="https://bhallaapoorva2004-ux.github.io/phishing-outlook-addin/"/>
 
   <AppDomains>
-    <AppDomain>https://YOUR_GITHUB_USERNAME.github.io</AppDomain>
+    <AppDomain>https://bhallaapoorva2004-ux.github.io</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -41,7 +34,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/taskpane.html"/>
+        <SourceLocation DefaultValue="https://bhallaapoorva2004-ux.github.io/phishing-outlook-addin/taskpane.html"/>
       </DesktopSettings>
     </Form>
   </FormSettings>
@@ -54,58 +47,80 @@
 
   <DisableEntityHighlighting>false</DisableEntityHighlighting>
 
-  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+  <VersionOverrides
+    xmlns="http://schemas.microsoft.com/office/mailappversionoverrides"
+    xsi:type="VersionOverridesV1_0">
+
     <Requirements>
       <bt:Sets DefaultMinVersion="1.5">
         <bt:Set Name="Mailbox"/>
       </bt:Sets>
     </Requirements>
+
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
+
           <FunctionFile resid="Commands.Url"/>
+
           <ExtensionPoint xsi:type="MessageReadCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="msgReadGroup">
+
                 <Label resid="GroupLabel"/>
+
                 <Control xsi:type="Button" id="msgReadOpenPaneButton">
+
                   <Label resid="PaneButton.Label"/>
+
                   <Supertip>
                     <Title resid="PaneButton.Label"/>
                     <Description resid="PaneButton.Tooltip"/>
                   </Supertip>
+
                   <Icon>
                     <bt:Image size="16" resid="Icon.16x16"/>
                     <bt:Image size="32" resid="Icon.32x32"/>
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
+
                   <Action xsi:type="ShowTaskpane">
                     <SourceLocation resid="Taskpane.Url"/>
                   </Action>
+
                 </Control>
               </Group>
             </OfficeTab>
           </ExtensionPoint>
+
         </DesktopFormFactor>
       </Host>
     </Hosts>
+
     <Resources>
+
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/icons/icon16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/icons/icon32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/icons/icon80.png"/>
+        <bt:Image id="Icon.16x16" DefaultValue="https://bhallaapoorva2004-ux.github.io/phishing-outlook-addin/icons/icon16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://bhallaapoorva2004-ux.github.io/phishing-outlook-addin/icons/icon32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://bhallaapoorva2004-ux.github.io/phishing-outlook-addin/icons/icon80.png"/>
       </bt:Images>
+
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/commands.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/taskpane.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://bhallaapoorva2004-ux.github.io/phishing-outlook-addin/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://bhallaapoorva2004-ux.github.io/phishing-outlook-addin/taskpane.html"/>
       </bt:Urls>
+
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Phishing Checker"/>
         <bt:String id="PaneButton.Label" DefaultValue="Check Links"/>
       </bt:ShortStrings>
+
       <bt:LongStrings>
         <bt:String id="PaneButton.Tooltip" DefaultValue="Scan this email's links for phishing risk"/>
       </bt:LongStrings>
+
     </Resources>
+
   </VersionOverrides>
+
 </OfficeApp>
