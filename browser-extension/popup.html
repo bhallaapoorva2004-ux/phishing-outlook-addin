@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Phishing URL Checker</title>
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="app__header">
+      <div class="brand">
+        <span class="brand__mark" id="statusMark">●</span>
+        <span class="brand__name">Phishing Checker</span>
+      </div>
+      <button class="iconbtn" id="settingsBtn" title="Settings">⚙</button>
+    </header>
+
+    <section class="site">
+      <span class="site__eyebrow">Current site</span>
+      <span class="site__url" id="currentUrl">loading…</span>
+    </section>
+
+    <section class="scan">
+      <div class="scan__rail">
+        <div class="scan__line" id="scanLine"></div>
+      </div>
+      <div class="scan__verdict" id="quickVerdict">
+        <span class="verdict__label">Quick scan</span>
+        <span class="verdict__value" id="quickVerdictValue">—</span>
+      </div>
+      <ul class="scan__signals" id="signalsList"></ul>
+    </section>
+
+    <section class="actions">
+      <button class="btn btn--primary" id="fullScanBtn">Run full AI scan</button>
+      <p class="hint" id="configHint"></p>
+    </section>
+
+    <footer class="app__footer">
+      Local heuristic scan runs instantly in your browser. Full AI scan sends the
+      URL to your own Phishing Detection System for a model-based verdict.
+    </footer>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
