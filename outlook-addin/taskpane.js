@@ -1,9 +1,5 @@
 /* global Office */
 
-// ==========================
-// SAME HEURISTICS AS app1.py's behavioral_analysis()
-// ==========================
-
 function localHeuristicScan(url) {
   const signals = [];
 
@@ -26,13 +22,8 @@ function verdictFromSignals(signals) {
 
 function extractUrls(text) {
   const matches = text.match(/https?:\/\/[^\s"'<>)]+/gi) || [];
-  // De-duplicate while preserving order
   return [...new Set(matches)];
 }
-
-// ==========================
-// DOM REFS
-// ==========================
 
 const streamlitUrlInput = document.getElementById("streamlitUrl");
 const saveUrlBtn = document.getElementById("saveUrlBtn");
@@ -44,13 +35,10 @@ const statusMark = document.getElementById("statusMark");
 
 const STORAGE_KEY = "phishingChecker.streamlitUrl";
 
-// ==========================
-// OFFICE INIT
-// ==========================
-
 Office.onReady(() => {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) streamlitUrlInput.value = saved;
+  runScan();
 });
 
 saveUrlBtn.addEventListener("click", () => {
@@ -67,27 +55,26 @@ saveUrlBtn.addEventListener("click", () => {
   configStatus.textContent = "Saved.";
 });
 
-// ==========================
-// SCAN THE OPEN EMAIL
-// ==========================
-
-scanBtn.addEventListener("click", () => {
+function runScan() {
   scanBtn.disabled = true;
   scanBtn.textContent = "Scanning…";
+  results.innerHTML = `<p class="empty">Scanning this email's links…</p>`;
 
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Text, (result) => {
     scanBtn.disabled = false;
-    scanBtn.textContent = "Scan links in this email";
+    scanBtn.textContent = "Re-scan this email";
 
     if (result.status !== Office.AsyncResultStatus.Succeeded) {
-      results.innerHTML = `<p class="empty">Couldn't read this email's body. Try again.</p>`;
+      results.innerHTML = `<p class="empty">Couldn't read this email's body. Try "Re-scan".</p>`;
       return;
     }
 
     const urls = extractUrls(result.value);
     renderResults(urls);
   });
-});
+}
+
+scanBtn.addEventListener("click", runScan);
 
 function renderResults(urls) {
   results.innerHTML = "";
@@ -141,9 +128,6 @@ function renderResults(urls) {
         return;
       }
       const target = `${streamlitUrl.replace(/\/$/, "")}/?url=${encodeURIComponent(url)}`;
-      // Outlook task panes run in a sandboxed webview; open the result in
-      // the user's real browser via Office.context.ui.openBrowserWindow when
-      // available, otherwise fall back to window.open.
       if (Office.context.ui && Office.context.ui.openBrowserWindow) {
         Office.context.ui.openBrowserWindow(target);
       } else {
